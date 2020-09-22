@@ -1,4 +1,6 @@
-const express = require('express');
+/* eslint-disable no-console */
+import express from 'express';
+
 const app = express();
 const PORT = 3000;
 
