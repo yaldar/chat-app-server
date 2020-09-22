@@ -4,12 +4,24 @@
   "description": "Chat app server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsc index.ts && nodemon index.js"
   },
   "keywords": [
     "chat",
     "express"
   ],
   "author": "Yaldar Hapak",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "repository": {
+  "type": "git",
+  "url": "git://github.com/yaldar/chat-app-server.git"
+}
+
 }
