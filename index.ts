@@ -1,13 +1,25 @@
 /* eslint-disable no-console */
-import express from 'express';
+// const express = require('express');
+import * as express from 'express';
+import * as socket from 'socket-io';
 
 const app = express();
-const PORT = 3000;
+const cookie = require('cookie');
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+const PORT = 8080;
+
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
+io.use((socket, next) => {
+  console.log(socket);
+});
+io.on('connection', (socket) => {
+  socket.on('test', () => {
+    console.log(cookie);
+  });
 });
 
-app.listen(PORT, () => {
-  console.log(`Example app listening at http://localhost:${PORT}`);
+http.listen(PORT, () => {
+  console.log(`listening on port ${PORT}`);
 });
