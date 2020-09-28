@@ -12,9 +12,7 @@ app.use(bodyParser.json());
 app.use(cors());
 var PORT = 8080;
 var INACTIVITY_TIMEOUT = 60000;
-var http = require('http').createServer(app, {
-    pingTimeout: INACTIVITY_TIMEOUT
-});
+var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 app.use(morgan('combined', {
     stream: {
@@ -25,9 +23,16 @@ app.use(morgan('combined', {
 }));
 var users = [];
 io.on('connection', function (socket) {
+    var inactivityTimer;
     socket.on('new_message', function (data) {
         var id = data.id, message = data.message;
         var nickname = util.getNickname(id, users);
+        clearTimeout(inactivityTimer);
+        inactivityTimer = setTimeout(function () {
+            socket.emit('inactivity_disconnect');
+            socket.disconnect();
+            io.emit('timeout', nickname);
+        }, 60 * 15);
         if (nickname) {
             io.emit('new_message', { nickname: nickname, message: message });
             logger.info("User " + nickname + " sent a message \"" + message + "\" at " + util.getTime() + ". Socket Id: " + id);

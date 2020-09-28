@@ -56,7 +56,7 @@ io.on('connection', (socket: Socket) => {
       socket.emit('inactivity_disconnect');
       socket.disconnect();
       io.emit('timeout', nickname);
-    }, 60 * 15);
+    }, INACTIVITY_TIMEOUT);
 
     if (nickname) {
       io.emit('new_message', { nickname, message });

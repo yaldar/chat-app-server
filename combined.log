@@ -5,3 +5,67 @@
 {"message":"User w sent a message \"w\" at 2020-9-28-11-8-38. Socket Id: r2Cp8pWfeLIjoF4iAAAA","level":"info","service":"user-service"}
 {"message":"User nickname: w, with Id: r2Cp8pWfeLIjoF4iAAAA disconnected ","level":"info","service":"user-service"}
 {"message":"Shutting down on SIGINT","level":"info","service":"user-service"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"message":"New user joined, id: xFJXqPo3aBz631ULAAAA, nickname: wa","level":"info","service":"user-service"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"message":"User wa sent a message \"dasda\" at 2020-9-28-11-30-47. Socket Id: xFJXqPo3aBz631ULAAAA","level":"info","service":"user-service"}
+{"message":"User wa sent a message \"asd\" at 2020-9-28-11-30-47. Socket Id: xFJXqPo3aBz631ULAAAA","level":"info","service":"user-service"}
+{"message":"User wa sent a message \"asd\" at 2020-9-28-11-30-48. Socket Id: xFJXqPo3aBz631ULAAAA","level":"info","service":"user-service"}
+{"message":"User wa sent a message \"as\" at 2020-9-28-11-30-48. Socket Id: xFJXqPo3aBz631ULAAAA","level":"info","service":"user-service"}
+{"message":"User wa sent a message \"da\" at 2020-9-28-11-30-48. Socket Id: xFJXqPo3aBz631ULAAAA","level":"info","service":"user-service"}
+{"message":"User wa sent a message \"ds\" at 2020-9-28-11-30-48. Socket Id: xFJXqPo3aBz631ULAAAA","level":"info","service":"user-service"}
+{"message":"User wa sent a message \"ad\" at 2020-9-28-11-30-48. Socket Id: xFJXqPo3aBz631ULAAAA","level":"info","service":"user-service"}
+{"message":"User wa sent a message \"a\" at 2020-9-28-11-30-49. Socket Id: xFJXqPo3aBz631ULAAAA","level":"info","service":"user-service"}
+{"message":"User nickname: wa, with Id: xFJXqPo3aBz631ULAAAA disconnected ","level":"info","service":"user-service"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"message":"New user joined, id: _xCvymsToVZqPte-AAAB, nickname: asdfas","level":"info","service":"user-service"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"message":"User asdfas sent a message \"asdf\" at 2020-9-28-11-30-52. Socket Id: _xCvymsToVZqPte-AAAB","level":"info","service":"user-service"}
+{"message":"User asdfas sent a message \"a\" at 2020-9-28-11-30-53. Socket Id: _xCvymsToVZqPte-AAAB","level":"info","service":"user-service"}
+{"message":"User asdfas sent a message \"dfa\" at 2020-9-28-11-30-53. Socket Id: _xCvymsToVZqPte-AAAB","level":"info","service":"user-service"}
+{"message":"User asdfas sent a message \"sdfa\" at 2020-9-28-11-30-53. Socket Id: _xCvymsToVZqPte-AAAB","level":"info","service":"user-service"}
+{"message":"User asdfas sent a message \"sdf\" at 2020-9-28-11-30-53. Socket Id: _xCvymsToVZqPte-AAAB","level":"info","service":"user-service"}
+{"message":"User nickname: asdfas, with Id: _xCvymsToVZqPte-AAAB disconnected ","level":"info","service":"user-service"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"message":"New user joined, id: hm0qCYsQEHpSAmFqAAAC, nickname: as","level":"info","service":"user-service"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"message":"User as sent a message \"a\" at 2020-9-28-11-31-5. Socket Id: hm0qCYsQEHpSAmFqAAAC","level":"info","service":"user-service"}
+{"message":"User nickname: as, with Id: hm0qCYsQEHpSAmFqAAAC disconnected ","level":"info","service":"user-service"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"message":"New user joined, id: 2hLgvZB9iPWvamWNAAAD, nickname: a","level":"info","service":"user-service"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"message":"User a sent a message \"asd\" at 2020-9-28-11-31-8. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"asd\" at 2020-9-28-11-31-8. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"dsas\" at 2020-9-28-11-31-9. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"ds\" at 2020-9-28-11-31-9. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"dfa\" at 2020-9-28-11-31-9. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"sdfsa\" at 2020-9-28-11-31-10. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"dfs\" at 2020-9-28-11-31-10. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"dfa\" at 2020-9-28-11-31-10. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"sdfa\" at 2020-9-28-11-31-11. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"dsfas\" at 2020-9-28-11-31-11. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"df\" at 2020-9-28-11-31-11. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"sdfa\" at 2020-9-28-11-31-12. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"sdffa\" at 2020-9-28-11-31-12. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"sdfa\" at 2020-9-28-11-31-12. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"sdfa\" at 2020-9-28-11-31-13. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"sdffa\" at 2020-9-28-11-31-13. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"sdfa\" at 2020-9-28-11-31-13. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"sdfa\" at 2020-9-28-11-31-13. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"sdfa\" at 2020-9-28-11-31-14. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"sdfas\" at 2020-9-28-11-31-14. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"dfas\" at 2020-9-28-11-31-14. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"fas\" at 2020-9-28-11-31-15. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"dfasd\" at 2020-9-28-11-31-15. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"fasdf\" at 2020-9-28-11-31-15. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"fasdf\" at 2020-9-28-11-31-16. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"adf\" at 2020-9-28-11-31-16. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"adf\" at 2020-9-28-11-31-16. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"fads\" at 2020-9-28-11-31-17. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User a sent a message \"a\" at 2020-9-28-11-31-17. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
+{"message":"User nickname: a, with Id: 2hLgvZB9iPWvamWNAAAD disconnected ","level":"info","service":"user-service"}
+{"message":"Shutting down on SIGINT","level":"info","service":"user-service"}
