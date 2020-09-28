@@ -1,0 +1,7 @@
+{"service":"user-service","level":"info","message":"Request served"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"message":"New user joined, id: r2Cp8pWfeLIjoF4iAAAA, nickname: w","level":"info","service":"user-service"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"message":"User w sent a message \"w\" at 2020-9-28-11-8-38. Socket Id: r2Cp8pWfeLIjoF4iAAAA","level":"info","service":"user-service"}
+{"message":"User nickname: w, with Id: r2Cp8pWfeLIjoF4iAAAA disconnected ","level":"info","service":"user-service"}
+{"message":"Shutting down on SIGINT","level":"info","service":"user-service"}
