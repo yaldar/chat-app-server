@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const PORT = 8080;
-const INACTIVITY_TIMEOUT = 60000;
+const INACTIVITY_TIMEOUT = 10000; // 10 seconds
 const http = require('http').createServer(app);
 
 const io = require('socket.io')(http);
