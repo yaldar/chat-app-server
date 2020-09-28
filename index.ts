@@ -48,15 +48,23 @@ let users: UserType[] = [];
 io.on('connection', (socket: Socket) => {
   let inactivityTimer;
 
-  socket.on('new_message', (data: MessageType) => {
-    const { id, message } = data;
-    const nickname = util.getNickname(id, users);
-    clearTimeout(inactivityTimer);
+  socket.on('user_join', (nickname: string) => {
     inactivityTimer = setTimeout(() => {
       socket.emit('inactivity_disconnect');
       socket.disconnect();
       io.emit('timeout', nickname);
     }, INACTIVITY_TIMEOUT);
+
+    users.push({ nickname, id: socket.id });
+    io.emit('user_join', nickname);
+    logger.info(`New user joined, id: ${socket.id}, nickname: ${nickname}`);
+  });
+
+  socket.on('new_message', (data: MessageType) => {
+    clearTimeout(inactivityTimer);
+
+    const { id, message } = data;
+    const nickname = util.getNickname(id, users);
 
     if (nickname) {
       io.emit('new_message', { nickname, message });
@@ -70,12 +78,6 @@ io.on('connection', (socket: Socket) => {
       );
       socket.disconnect();
     }
-  });
-
-  socket.on('user_join', (nickname: string) => {
-    users.push({ nickname, id: socket.id });
-    io.emit('user_join', nickname);
-    logger.info(`New user joined, id: ${socket.id}, nickname: ${nickname}`);
   });
 
   socket.on('disconnect', () => {

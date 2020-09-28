@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 var PORT = 8080;
-var INACTIVITY_TIMEOUT = 60000;
+var INACTIVITY_TIMEOUT = 10000; // 10 seconds
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 app.use(morgan('combined', {
@@ -24,15 +24,20 @@ app.use(morgan('combined', {
 var users = [];
 io.on('connection', function (socket) {
     var inactivityTimer;
-    socket.on('new_message', function (data) {
-        var id = data.id, message = data.message;
-        var nickname = util.getNickname(id, users);
-        clearTimeout(inactivityTimer);
+    socket.on('user_join', function (nickname) {
         inactivityTimer = setTimeout(function () {
             socket.emit('inactivity_disconnect');
             socket.disconnect();
             io.emit('timeout', nickname);
-        }, 60 * 15);
+        }, INACTIVITY_TIMEOUT);
+        users.push({ nickname: nickname, id: socket.id });
+        io.emit('user_join', nickname);
+        logger.info("New user joined, id: " + socket.id + ", nickname: " + nickname);
+    });
+    socket.on('new_message', function (data) {
+        clearTimeout(inactivityTimer);
+        var id = data.id, message = data.message;
+        var nickname = util.getNickname(id, users);
         if (nickname) {
             io.emit('new_message', { nickname: nickname, message: message });
             logger.info("User " + nickname + " sent a message \"" + message + "\" at " + util.getTime() + ". Socket Id: " + id);
@@ -41,11 +46,6 @@ io.on('connection', function (socket) {
             logger.warn("Socket with id: " + id + " attempted to send \"" + message + "\" with " + nickname + ". No such nickname in the database. Disconnecting socket " + id);
             socket.disconnect();
         }
-    });
-    socket.on('user_join', function (nickname) {
-        users.push({ nickname: nickname, id: socket.id });
-        io.emit('user_join', nickname);
-        logger.info("New user joined, id: " + socket.id + ", nickname: " + nickname);
     });
     socket.on('disconnect', function () {
         var id = socket.id;

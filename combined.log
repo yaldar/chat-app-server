@@ -69,3 +69,14 @@
 {"message":"User a sent a message \"a\" at 2020-9-28-11-31-17. Socket Id: 2hLgvZB9iPWvamWNAAAD","level":"info","service":"user-service"}
 {"message":"User nickname: a, with Id: 2hLgvZB9iPWvamWNAAAD disconnected ","level":"info","service":"user-service"}
 {"message":"Shutting down on SIGINT","level":"info","service":"user-service"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"message":"New user joined, id: FRWAQlMK1wVTWVQjAAAA, nickname: aa","level":"info","service":"user-service"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"message":"User nickname: aa, with Id: FRWAQlMK1wVTWVQjAAAA disconnected ","level":"info","service":"user-service"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"message":"New user joined, id: YRfTLWmfpEX7x9pHAAAB, nickname: asd","level":"info","service":"user-service"}
+{"service":"user-service","level":"info","message":"Request served"}
+{"message":"User nickname: asd, with Id: YRfTLWmfpEX7x9pHAAAB disconnected ","level":"info","service":"user-service"}
+{"message":"Shutting down on SIGINT","level":"info","service":"user-service"}
