@@ -1,23 +1,32 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 exports.__esModule = true;
-var morgan = require('morgan');
-var express = require('express');
-var bodyParser = require('body-parser');
-var cors = require('cors');
-var logger = require('./logger').logger;
-var util = require('./util');
-var app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(cors());
+/* eslint-disable no-unused-vars */
+/* eslint-disable linebreak-style */
+/* eslint-disable no-console */
+var express_1 = __importDefault(require("express"));
+var socket_io_1 = __importDefault(require("socket.io"));
+var morgan_1 = __importDefault(require("morgan"));
+var body_parser_1 = __importDefault(require("body-parser"));
+var cors_1 = __importDefault(require("cors"));
+var http_1 = __importDefault(require("http"));
+var logger_1 = require("./logger");
+var util_1 = __importDefault(require("./util"));
+var app = express_1["default"]();
+app.use(body_parser_1["default"].urlencoded({ extended: false }));
+app.use(body_parser_1["default"].json());
+app.use(cors_1["default"]());
 var PORT = 8080;
-var INACTIVITY_TIMEOUT = 10000; // 10 seconds
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
-app.use(morgan('combined', {
+var INACTIVITY_TIMEOUT = 1000; // 10 seconds
+var server = http_1["default"].createServer(app);
+var io = socket_io_1["default"](server);
+var startTimer = function (timer, socket, nickname) { };
+app.use(morgan_1["default"]('combined', {
     stream: {
         write: function (meta) {
-            logger.info('Request served', meta);
+            logger_1.logger.info('Request served', meta);
         }
     }
 }));
@@ -32,28 +41,33 @@ io.on('connection', function (socket) {
         }, INACTIVITY_TIMEOUT);
         users.push({ nickname: nickname, id: socket.id });
         io.emit('user_join', nickname);
-        logger.info("New user joined, id: " + socket.id + ", nickname: " + nickname);
+        logger_1.logger.info("New user joined, id: " + socket.id + ", nickname: " + nickname);
     });
     socket.on('new_message', function (data) {
-        clearTimeout(inactivityTimer);
         var id = data.id, message = data.message;
-        var nickname = util.getNickname(id, users);
+        var nickname = util_1["default"].getNickname(id, users);
+        clearTimeout(inactivityTimer);
+        inactivityTimer = setTimeout(function () {
+            socket.emit('inactivity_disconnect');
+            socket.disconnect();
+            io.emit('timeout', nickname);
+        }, INACTIVITY_TIMEOUT);
         if (nickname) {
             io.emit('new_message', { nickname: nickname, message: message });
-            logger.info("User " + nickname + " sent a message \"" + message + "\" at " + util.getTime() + ". Socket Id: " + id);
+            logger_1.logger.info("User " + nickname + " sent a message \"" + message + "\" at " + util_1["default"].getTime() + ". Socket Id: " + id);
         }
         else {
-            logger.warn("Socket with id: " + id + " attempted to send \"" + message + "\" with " + nickname + ". No such nickname in the database. Disconnecting socket " + id);
+            logger_1.logger.warn("Socket with id: " + id + " attempted to send \"" + message + "\" with " + nickname + ". No such nickname in the database. Disconnecting socket " + id);
             socket.disconnect();
         }
     });
     socket.on('disconnect', function () {
         var id = socket.id;
-        var nickname = util.getNickname(id, users);
+        var nickname = util_1["default"].getNickname(id, users);
         if (nickname) {
             users = users.filter(function (el) { return el.id.toString() !== id.toString(); });
             io.emit('user_leave', nickname);
-            logger.info("User nickname: " + nickname + ", with Id: " + socket.id + " disconnected ");
+            logger_1.logger.info("User nickname: " + nickname + ", with Id: " + socket.id + " disconnected ");
         }
     });
 });
@@ -75,15 +89,15 @@ app.get('/api/users/:nickname', function (req, res) {
 app.use(function (req, res) {
     res.status(404).json({ message: 'Page Not Found' });
 });
-app.use(function (err, req, res, next) {
-    logger.error(req.method + " - " + err.message + "  - " + req.originalUrl + " - " + req.ip);
+app.use(function (err, req, res, _next) {
+    logger_1.logger.error(req.method + " - " + err.message + "  - " + req.originalUrl + " - " + req.ip);
     res.status(500).json({
         message: "Something went wrong fetching the data. Try again later. Internal server error: \"" + err + "\""
     });
 });
-http.listen(PORT, function () {
+server.listen(PORT, function () {
     console.log("listening on port " + PORT);
 });
-process.on('SIGINT', function () { return util.existHandler('SIGINT', logger, io); });
-process.on('SIGTERM', function () { return util.existHandler('SIGTERM', logger, io); });
-process.on('exist', function () { return util.existHandler('exit', logger, io); });
+process.on('SIGINT', function () { return util_1["default"].existHandler('SIGINT', logger_1.logger, io); });
+process.on('SIGTERM', function () { return util_1["default"].existHandler('SIGTERM', logger_1.logger, io); });
+process.on('exit', function () { return util_1["default"].existHandler('exit', logger_1.logger, io); });

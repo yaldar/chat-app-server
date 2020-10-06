@@ -1,15 +1,12 @@
 /* eslint-disable no-console */
-import { Request, Response, NextFunction } from 'express';
-import { Socket } from 'socket.io';
-
-const morgan = require('morgan');
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-
-const { logger } = require('./logger');
-
-const util = require('./util');
+import express from 'express';
+import Socket from 'socket.io';
+import morgan from 'morgan';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import http from 'http';
+import { logger } from './logger';
+import util from './util';
 
 const app = express();
 
@@ -18,10 +15,11 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const PORT = 8080;
-const INACTIVITY_TIMEOUT = 10000; // 10 seconds
-const http = require('http').createServer(app);
+const INACTIVITY_TIMEOUT = 1000; // 10 seconds
 
-const io = require('socket.io')(http);
+const server = http.createServer(app);
+
+const io = Socket(server);
 
 app.use(
   morgan('combined', {
@@ -45,7 +43,7 @@ type MessageType = {
 
 let users: UserType[] = [];
 
-io.on('connection', (socket: Socket) => {
+io.on('connection', (socket) => {
   let inactivityTimer;
 
   socket.on('user_join', (nickname: string) => {
@@ -61,14 +59,17 @@ io.on('connection', (socket: Socket) => {
   });
 
   socket.on('new_message', (data: MessageType) => {
-    clearTimeout(inactivityTimer);
-
     const { id, message } = data;
     const nickname = util.getNickname(id, users);
+    clearTimeout(inactivityTimer);
 
+    inactivityTimer = setTimeout(() => {
+      socket.emit('inactivity_disconnect');
+      socket.disconnect();
+      io.emit('timeout', nickname);
+    }, INACTIVITY_TIMEOUT);
     if (nickname) {
       io.emit('new_message', { nickname, message });
-
       logger.info(
         `User ${nickname} sent a message "${message}" at ${util.getTime()}. Socket Id: ${id}`,
       );
@@ -94,14 +95,14 @@ io.on('connection', (socket: Socket) => {
   });
 });
 
-app.get('/api/users', (req: Request, res: Response) => {
+app.get('/api/users', (_req, res) => {
   res
     .json(users.map((user) => user.nickname))
     .status(200)
     .end();
 });
 
-app.get('/api/users/:nickname', (req: Request, res: Response) => {
+app.get('/api/users/:nickname', (req, res) => {
   const found = users.find((el) => el.nickname === req.params.nickname);
   if (found) {
     res.status(409).end();
@@ -110,11 +111,12 @@ app.get('/api/users/:nickname', (req: Request, res: Response) => {
   }
 });
 
-app.use((req: Request, res: Response) => {
+app.use((req, res) => {
   res.status(404).json({ message: 'Page Not Found' });
 });
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, _next) => {
   logger.error(
     `${req.method} - ${err.message}  - ${req.originalUrl} - ${req.ip}`,
   );
@@ -123,10 +125,10 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-http.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
 
 process.on('SIGINT', () => util.existHandler('SIGINT', logger, io));
 process.on('SIGTERM', () => util.existHandler('SIGTERM', logger, io));
-process.on('exist', () => util.existHandler('exit', logger, io));
+process.on('exit', () => util.existHandler('exit', logger, io));
