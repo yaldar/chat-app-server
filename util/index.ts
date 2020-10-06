@@ -1,13 +1,40 @@
+import { Server } from 'socket.io';
+import { readFileSync, writeFileSync } from 'fs';
+
 type UserType = {
   nickname: string;
   id: string;
 };
-const getNickname = (id: string, users: UserType[]) => {
+
+const getAllData = () => {
+  const data = readFileSync('./users.json', { encoding: 'utf-8' });
+  const users: UserType[] = JSON.parse(data);
+  return users;
+};
+
+const getNicknames = () => {
+  const users = getAllData();
+  return users.map((el) => el.nickname);
+};
+const getNickname = (id: string) => {
+  const users = getAllData();
   const found = users.find((u) => u.id === id);
   if (found) {
     return found.nickname;
   }
   return null;
+};
+
+const writeToFile = (path: string, data: string) => {
+  writeFileSync(path, data);
+};
+const addUser = (nickname, id) => {
+  const user = { nickname, id };
+
+  const users = getAllData();
+  users.push(user);
+
+  writeToFile('./users.json', JSON.stringify(users));
 };
 
 const getTime = () => {
@@ -18,19 +45,33 @@ const getTime = () => {
   return date;
 };
 
-const existHandler = (
-  code: string,
-  logger: any,
-  io: SocketIO.Server,
-) => {
+const removeUser = (nickname: string) => {
+  const allUsers = getAllData();
+  const newUsers = allUsers.filter((el) => el.nickname !== nickname);
+  writeFileSync('./users.json', JSON.stringify(newUsers));
+};
+
+const alreadyExists = (nickname: string) => {
+  return getNicknames().some((el) => el === nickname);
+};
+
+const initDataBase = () => {
+  writeFileSync('./users.json', JSON.stringify([]))
+}
+const existHandler = (code: string, logger: any, io: Server) => {
   logger.info(`Shutting down on ${code}`);
   io.emit('server_shutdown');
   io.close();
 };
 
-module.exports = {
+export default {
   getNickname,
   getTime,
   existHandler,
+  removeUser,
+  getNicknames,
+  addUser,
+  alreadyExists,
+  getAllData,
+  initDataBase
 };
-export default { getNickname, getTime, existHandler };

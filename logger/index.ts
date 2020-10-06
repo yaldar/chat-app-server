@@ -1,4 +1,5 @@
-const winston = require('winston');
+/* eslint-disable import/prefer-default-export */
+import winston from 'winston';
 
 const logger = winston.createLogger({
   level: 'info',
