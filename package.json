@@ -4,7 +4,7 @@
   "description": "Chat app server",
   "main": "index.js",
   "scripts": {
-    "start": "tsc *.ts **/*.ts --esModuleInterop && node index.js",
+    "start": "npx tsc *.ts **/*.ts --esModuleInterop && node index.js",
     "dev": "tsc *.ts **/*.ts --esModuleInterop && nodemon index.js",
     "test": "jest"
   },

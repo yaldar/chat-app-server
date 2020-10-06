@@ -1,5 +1,3 @@
-const winston = require('winston')
-
 type UserType = {
   nickname: string;
   id: string;
@@ -29,7 +27,6 @@ const existHandler = (
   io.emit('server_shutdown');
   io.close();
 };
-
 
 module.exports = {
   getNickname,
