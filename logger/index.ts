@@ -1,9 +1,11 @@
 /* eslint-disable import/prefer-default-export */
-import winston from 'winston';
+import winston, { format } from 'winston';
+
+const { combine, timestamp } = format;
 
 const logger = winston.createLogger({
   level: 'info',
-  format: winston.format.json(),
+  format: combine(timestamp(), winston.format.json()),
   defaultMeta: { service: 'user-service' },
   transports: [
     new winston.transports.File({ filename: 'error.log', level: 'error' }),
@@ -18,5 +20,8 @@ if (process.env.NODE_ENV !== 'production') {
     }),
   );
 }
+logger.info(
+  `User nickname: ${'nickname'}, with Id: ${'socket.id'} disconnected `,
+);
 
 export { logger };

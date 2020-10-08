@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import Socket from 'socket.io';
 import { logger } from './logger';
 import util from './util';
