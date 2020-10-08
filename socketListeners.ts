@@ -2,7 +2,7 @@ import Socket from 'socket.io';
 import { logger } from './logger';
 import util from './util';
 
-const INACTIVITY_TIMEOUT = 5000220; // 10 seconds
+const INACTIVITY_TIMEOUT = 10000; // 10 seconds
 
 const startTimer = (
   io: Socket.Server,
