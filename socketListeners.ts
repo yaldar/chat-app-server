@@ -2,18 +2,17 @@ import Socket from 'socket.io';
 import { logger } from './logger';
 import util from './util';
 
-const INACTIVITY_TIMEOUT = 5000; // 10 seconds
+const INACTIVITY_TIMEOUT = 5000220; // 10 seconds
 
 const startTimer = (
   io: Socket.Server,
   socket: Socket.Socket,
   nickname: string,
-) =>
-  setTimeout(() => {
-    socket.emit('inactivity_disconnect');
-    socket.disconnect();
-    io.emit('timeout', nickname);
-  }, INACTIVITY_TIMEOUT);
+) => setTimeout(() => {
+  socket.emit('inactivity_disconnect');
+  socket.disconnect();
+  io.emit('timeout', nickname);
+}, INACTIVITY_TIMEOUT);
 
 type MessageType = {
   id: string;

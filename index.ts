@@ -1,6 +1,3 @@
-/* eslint-disable prefer-const */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/extensions */
 /* eslint-disable no-console */
 import express from 'express';
 import Socket from 'socket.io';
@@ -17,6 +14,9 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
+
+util.initDataBase();
+
 app.use(createRouter);
 
 const PORT = process.env.PORT || 8080;
@@ -32,7 +32,6 @@ app.use(
     },
   }),
 );
-
 
 io.on('connection', createSocketListeners(io));
 

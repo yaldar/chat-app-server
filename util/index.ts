@@ -1,7 +1,9 @@
 import { Server } from 'socket.io';
 import { readFileSync, writeFileSync } from 'fs';
+import { read } from 'fs/promises';
+import { type } from 'os';
 
-type UserType = {
+interface UserType  {
   nickname: string;
   id: string;
 };
@@ -56,8 +58,18 @@ const alreadyExists = (nickname: string) => {
 };
 
 const initDataBase = () => {
-  writeFileSync('./users.json', JSON.stringify([]))
-}
+  const data = readFileSync('./users.json', 'utf-8');
+  if (data) {
+    try {
+      //use joi here
+    } catch (_e) {
+      // log error in json format
+      writeFileSync('./users.json', JSON.stringify([]));
+    }
+  } else {
+    writeFileSync('./users.json', JSON.stringify([]));
+  }
+};
 const existHandler = (code: string, logger: any, io: Server) => {
   logger.info(`Shutting down on ${code}`);
   io.emit('server_shutdown');
@@ -73,5 +85,5 @@ export default {
   addUser,
   alreadyExists,
   getAllData,
-  initDataBase
+  initDataBase,
 };

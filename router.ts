@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/extensions */
 import express from 'express';
 import util from './util';
 
@@ -14,7 +12,7 @@ router.get('/api/users', (_req, res) => {
 });
 
 router.get('/api/users/:nickname', (req, res) => {
-  const nickname = req.params.nickname;
+  const { nickname } = req.params;
   const found = util.getNicknames().find((el) => el === nickname);
 
   if (found) {

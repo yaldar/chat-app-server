@@ -1,18 +1,17 @@
-import { json } from 'body-parser';
 import fs from 'fs';
 import Socket from 'socket.io';
-import { logger } from '../logger';
-import util from '../util';
 import express from 'express';
 import http from 'http';
+import {
+  describe, expect, it, beforeAll,
+} from '@jest/globals';
+import { logger } from '../logger';
+import util from '../util';
 
-const firstUser =
-  {
-    nickname: 'John Doe',
-    id: '123123123',
-  }
-;
-
+const firstUser = {
+  nickname: 'John Doe',
+  id: '123123123',
+};
 const secondUser = {
   nickname: 'second user',
   id: '222222222',
@@ -43,7 +42,6 @@ describe('database operations', () => {
     expect(result.length).toBe(2);
     expect(result).toStrictEqual(expectedOutput);
   });
-
 
   it('should get all nicknames successfully', () => {
     const expectedOutput = ['John Doe', 'second user'];
@@ -90,10 +88,8 @@ describe('shutting down behaviour when terminating server', () => {
   clearLog();
   util.existHandler(code, logger, io);
 
-  const readLog = () => {
-    console.log('herereererereer', fs.readFileSync('./combined.log', 'utf-8'));
-    return fs.readFileSync('./combined.log', 'utf-8');
-  };
+  const readLog = () => fs.readFileSync('./combined.log', 'utf-8');
+
   it('should log server termination in correct format', () => {
     expect(readLog()).toBe(`Shutting down on ${code}`);
 

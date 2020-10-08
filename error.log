@@ -1,2 +1,3 @@
 {"message":"GET - Unexpected end of JSON input  - /api/users/cdascasdc - ::1","level":"error","service":"user-service"}
 {"message":"GET - Unexpected end of JSON input  - /api/users - ::1","level":"error","service":"user-service"}
+{"message":"GET - Unexpected end of JSON input  - /api/users/asdfasdfa - ::1","level":"error","service":"user-service"}
