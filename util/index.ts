@@ -1,12 +1,10 @@
 import { Server } from 'socket.io';
 import { readFileSync, writeFileSync } from 'fs';
-import { read } from 'fs/promises';
-import { type } from 'os';
 
-interface UserType  {
+interface UserType {
   nickname: string;
   id: string;
-};
+}
 
 const getAllData = () => {
   const data = readFileSync('./users.json', { encoding: 'utf-8' });
@@ -53,15 +51,13 @@ const removeUser = (nickname: string) => {
   writeFileSync('./users.json', JSON.stringify(newUsers));
 };
 
-const alreadyExists = (nickname: string) => {
-  return getNicknames().some((el) => el === nickname);
-};
+const alreadyExists = (nickname: string) => getNicknames().some((el) => el === nickname);
 
 const initDataBase = () => {
   const data = readFileSync('./users.json', 'utf-8');
   if (data) {
     try {
-      //use joi here
+      // use joi here
     } catch (_e) {
       // log error in json format
       writeFileSync('./users.json', JSON.stringify([]));
